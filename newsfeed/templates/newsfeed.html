@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsfeed - Marketplace</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .product {
+            display: inline-block;
+            margin: 20px;
+            width: 30%;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .product img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        .product h2 {
+            margin-top: 10px;
+        }
+
+        .alert {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .alert-success {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #3c763d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Marketplace</h1>
+            <nav>
+                <ul>
+                    <li><a href="/#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/#about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/#categories"><i class="fas fa-th"></i> Categories</a></li>
+                    <li><a href="/#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="newsfeed">
+        <h2>Newsfeed</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="products">
+            {% for product in products %}
+                <div class="product">
+                    <img src='{{ product.image.url }}'>
+                    <h2>{{ product.title }}</h2>
+                    <p>{{ product.description }}</p>
+                    <p>Price: {{ product.price }}</p>
+                    <p>Posted by: {{ product.user.username }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <button><a href="{% url 'post_product' %}">Post a Product Listing</a></button>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Marketplace. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
